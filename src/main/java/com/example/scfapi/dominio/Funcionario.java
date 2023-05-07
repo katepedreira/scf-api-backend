@@ -3,6 +3,7 @@ package com.example.scfapi.dominio;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -19,7 +20,7 @@ public class Funcionario {
     private String cpf;
     private String departamento;
     private String cargo;
-    private double salario;
+    private Double salario;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date nascimento;
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
