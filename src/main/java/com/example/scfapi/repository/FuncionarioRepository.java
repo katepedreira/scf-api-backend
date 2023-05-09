@@ -5,9 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Integer> {
 
-    //default Funcionario findByMatricula(String matricula) {
-        //return null;
-    //}
+    public Funcionario getByMatricula(String matricula);
 
 
 }

@@ -23,7 +23,7 @@ public class FuncionarioResource {
 
     @PostMapping("/create")
         public ResponseEntity<Funcionario> create(@RequestBody  Funcionario funcionario) {
-        FuncionarioController funcionarioController = new FuncionarioController();
+        FuncionarioController funcionarioController = new FuncionarioController(funcionarioRepository);
         if (!funcionarioController.isFuncionarioValido(funcionario)) {
             return new ResponseEntity("Dados do funcionário inválido", HttpStatus.INTERNAL_SERVER_ERROR);
         }
