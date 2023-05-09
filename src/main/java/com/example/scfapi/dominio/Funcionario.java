@@ -63,11 +63,12 @@ public class Funcionario {
     }
 
     public String getCpf() {
+        this.cpf = limparCPF(cpf);
         return cpf;
     }
 
     public void setCpf(String cpf) {
-        this.cpf = cpf;
+        this.cpf = limparCPF(cpf);
     }
 
     public String getDepartamento() {
@@ -108,5 +109,9 @@ public class Funcionario {
 
     public void setDataHoraCadastro(Date dataHoraCadastro) {
         this.dataHoraCadastro = dataHoraCadastro;
+    }
+
+    public String limparCPF(String cpf) {
+        return cpf.replace(".", "").replace("-", "");
     }
 }
