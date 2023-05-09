@@ -48,6 +48,11 @@ public class FuncionarioController {
                 (cpf.length() != 11) || (!cpf.matches("[0-9]+")))
             return(false);
 
+        Funcionario cpfExistente = funcionarioRepository.getByCpf(cpf);
+        if (cpfExistente != null) {
+            return false;
+        }
+
         char dig10, dig11;
         int sm, i, r, num, peso;
 
