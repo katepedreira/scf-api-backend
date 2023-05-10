@@ -41,6 +41,10 @@ public class FuncionarioResource {
 
     @PutMapping("/edit")
     public ResponseEntity<Funcionario> editar(@RequestBody Funcionario funcionario) {
+        FuncionarioController funcionarioController = new FuncionarioController(funcionarioRepository);
+        if (!funcionarioController.isFuncionarioValido(funcionario)) {
+            return new ResponseEntity("Dados do funcionário inválido", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         funcionario = funcionarioRepository.save(funcionario);
         return new ResponseEntity(funcionario, HttpStatus.OK);
     }
