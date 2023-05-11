@@ -7,6 +7,7 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Intege
 
     public Funcionario getByMatricula(String matricula);
     public Funcionario getByCpf(String cpf);
+    public Funcionario getById(long id);
 
 
 }

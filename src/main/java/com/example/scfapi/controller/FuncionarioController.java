@@ -30,6 +30,14 @@ public class FuncionarioController {
         return true;
     }
 
+    public boolean isFuncionarioExistente(Funcionario funcionario) throws Exception {
+        Funcionario idExistente = funcionarioRepository.getById(funcionario.getId());
+        if (idExistente == null) {
+            throw new Exception("Funcionário não cadastrado no sistema");
+        }
+        return true;
+    }
+
     private boolean isNomeValido(String nome) throws Exception {
         if ((nome.isEmpty())) {
             throw new Exception("Nome vazio");
@@ -51,10 +59,6 @@ public class FuncionarioController {
                 throw new Exception("A matrícula deve conter 8 dígitos");
             }
         }
-        //Funcionario matriculaExistente = funcionarioRepository.getByMatricula(matricula);
-        //if (matriculaExistente != null) {
-            //throw new Exception("Matrícula já cadastrada no sistema");
-        //}
         return true;
     }
 
@@ -79,12 +83,6 @@ public class FuncionarioController {
                 }
             }
         }
-
-        //Funcionario cpfExistente = funcionarioRepository.getByCpf(cpf);
-
-        //if (cpfExistente != null) {
-            //throw new Exception("CPF já cadastrado no sistema");
-        //}
 
         char dig10, dig11;
         int sm, i, r, num, peso;
