@@ -40,7 +40,7 @@ public class FuncionarioController {
         return true;
     }
 
-    public boolean isCPFValido(String cpf) {
+    public boolean isCPFValido(String cpf) throws Exception {
         if (cpf.equals("00000000000") ||
                 cpf.equals("11111111111") ||
                 cpf.equals("22222222222") || cpf.equals("33333333333") ||
@@ -48,7 +48,7 @@ public class FuncionarioController {
                 cpf.equals("66666666666") || cpf.equals("77777777777") ||
                 cpf.equals("88888888888") || cpf.equals("99999999999") ||
                 (cpf.length() != 11) || (!cpf.matches("[0-9]+")))
-            return(false);
+            throw new Exception("Matricula Vazia");
 
         Funcionario cpfExistente = funcionarioRepository.getByCpf(cpf);
         if (cpfExistente != null) {
