@@ -14,20 +14,22 @@ public class FuncionarioController {
     }
 
     // Este método vai centralizar todas as validações da classe Funcionario.
-    public boolean isFuncionarioValido(Funcionario funcionario) {
+    public boolean isFuncionarioValido(Funcionario funcionario) throws Exception {
         return isNomeValido(funcionario.getNome()) && isMatriculaValida(funcionario.getMatricula()) && isCPFValido(funcionario.getCpf());
     }
 
-    private boolean isNomeValido(String nome) {
+    private boolean isNomeValido(String nome) throws Exception {
         if ((nome.isEmpty())) {
-            return false;
+            throw new Exception("Nome vazio");
         }
         return true;
     }
 
     private FuncionarioRepository funcionarioRepository;
-    private boolean isMatriculaValida(String matricula) {
-        if (matricula.isEmpty()) return false;
+    private boolean isMatriculaValida(String matricula) throws Exception {
+        if (matricula.isEmpty()) {
+            throw new Exception("Matricula Vazia");
+        }
         if (matricula.length() < 8) return false;
         if (!matricula.matches("[0-9]+")) return false;
         Funcionario funcionarioExistente = funcionarioRepository.getByMatricula(matricula);

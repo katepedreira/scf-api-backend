@@ -24,12 +24,17 @@ public class FuncionarioResource {
     @PostMapping("/create")
         public ResponseEntity<Funcionario> create(@RequestBody  Funcionario funcionario) {
         FuncionarioController funcionarioController = new FuncionarioController(funcionarioRepository);
-        if (!funcionarioController.isFuncionarioValido(funcionario)) {
-            return new ResponseEntity("Dados do funcionário inválido", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        try {
+            if (funcionarioController.isFuncionarioValido(funcionario)) {
+                funcionario.setDataHoraCadastro(new Date());
+                funcionario = funcionarioRepository.save(funcionario);
 
-        funcionario.setDataHoraCadastro(new Date());
-        funcionario = funcionarioRepository.save(funcionario);
+
+            }
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+
+        }
         return new ResponseEntity(funcionario, HttpStatus.OK);
 
     }
@@ -42,10 +47,16 @@ public class FuncionarioResource {
     @PutMapping("/edit")
     public ResponseEntity<Funcionario> editar(@RequestBody Funcionario funcionario) {
         FuncionarioController funcionarioController = new FuncionarioController(funcionarioRepository);
-        if (!funcionarioController.isFuncionarioValido(funcionario)) {
-            return new ResponseEntity("Dados do funcionário inválido", HttpStatus.INTERNAL_SERVER_ERROR);
+        try {
+            if (funcionarioController.isFuncionarioValido(funcionario)) {
+                funcionario = funcionarioRepository.save(funcionario);
+
+
+                }
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+
         }
-        funcionario = funcionarioRepository.save(funcionario);
         return new ResponseEntity(funcionario, HttpStatus.OK);
     }
 
