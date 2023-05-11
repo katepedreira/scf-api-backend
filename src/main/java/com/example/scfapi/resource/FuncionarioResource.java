@@ -25,15 +25,12 @@ public class FuncionarioResource {
         public ResponseEntity<Funcionario> create(@RequestBody  Funcionario funcionario) {
         FuncionarioController funcionarioController = new FuncionarioController(funcionarioRepository);
         try {
-            if (funcionarioController.isFuncionarioValido(funcionario)) {
+            if (funcionarioController.isFuncionarioValido(funcionario) && funcionarioController.notFuncionarioExistente(funcionario)) {
                 funcionario.setDataHoraCadastro(new Date());
                 funcionario = funcionarioRepository.save(funcionario);
-
-
             }
         } catch (Exception e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-
         }
         return new ResponseEntity(funcionario, HttpStatus.OK);
 
@@ -50,8 +47,6 @@ public class FuncionarioResource {
         try {
             if (funcionarioController.isFuncionarioValido(funcionario)) {
                 funcionario = funcionarioRepository.save(funcionario);
-
-
                 }
         } catch (Exception e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

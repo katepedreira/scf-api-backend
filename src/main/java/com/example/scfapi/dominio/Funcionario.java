@@ -11,7 +11,8 @@ import java.util.Date;
 public class Funcionario {
 
     @Id //define qual será a chave primaria (no caso sera o Id)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     @Column(length = 10)
     private String matricula;
