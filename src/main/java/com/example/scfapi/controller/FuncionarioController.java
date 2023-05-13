@@ -20,12 +20,13 @@ public class FuncionarioController {
 
     public boolean notFuncionarioExistente(Funcionario funcionario) throws Exception {
         Funcionario matriculaExistente = funcionarioRepository.getByMatricula(funcionario.getMatricula());
+        Funcionario cpfExistente = funcionarioRepository.getByCpf(funcionario.getCpf());
         if (matriculaExistente != null) {
             throw new Exception("Matrícula já cadastrada no sistema");
-        }
-        Funcionario cpfExistente = funcionarioRepository.getByCpf(funcionario.getCpf());
-        if (cpfExistente != null) {
-            throw new Exception("CPF já cadastrado no sistema");
+        } else {
+            if (cpfExistente != null) {
+                throw new Exception("CPF já cadastrado no sistema");
+            }
         }
         return true;
     }
@@ -123,7 +124,6 @@ public class FuncionarioController {
             // Verifica se os digitos calculados conferem com os digitos informados.
             if ((dig10 == cpf.charAt(9)) && (dig11 == cpf.charAt(10)))
                 return (true);
-                //else return(false);
             else {
                 throw new Exception("Digite um CPF válido");
             }
