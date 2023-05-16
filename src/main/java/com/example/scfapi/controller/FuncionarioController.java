@@ -13,31 +13,25 @@ public class FuncionarioController {
         this.funcionarioRepository = funcionarioRepository;
     }
 
-    // Este método vai centralizar todas as validações da classe Funcionario.
+
     public boolean isFuncionarioValido(Funcionario funcionario) throws Exception {
         return isNomeValido(funcionario.getNome()) && isMatriculaValida(funcionario.getMatricula()) && isCPFValido(funcionario.getCpf());
     }
 
-    public boolean notFuncionarioExistente(Funcionario funcionario) throws Exception {
-        Funcionario matriculaExistente = funcionarioRepository.getByMatricula(funcionario.getMatricula());
-        Funcionario cpfExistente = funcionarioRepository.getByCpf(funcionario.getCpf());
-        if (matriculaExistente != null) {
+
+    public boolean isCadastroFuncionarioUnico(Funcionario funcionario) throws Exception {
+        Funcionario funcMatricula = funcionarioRepository.getByMatricula(funcionario.getMatricula());
+        Funcionario funcCpf = funcionarioRepository.getByCpf(funcionario.getCpf());
+        if (funcMatricula != null && funcionario.getId() != funcMatricula.getId()) {
             throw new Exception("Matrícula já cadastrada no sistema");
         } else {
-            if (cpfExistente != null) {
+            if (funcCpf != null && funcionario.getId() != funcCpf.getId()) {
                 throw new Exception("CPF já cadastrado no sistema");
+                }
             }
-        }
         return true;
     }
 
-    public boolean isFuncionarioExistente(Funcionario funcionario) throws Exception {
-        Funcionario idExistente = funcionarioRepository.getById(funcionario.getId());
-        if (idExistente == null) {
-            throw new Exception("Funcionário não cadastrado no sistema");
-        }
-        return true;
-    }
 
     private boolean isNomeValido(String nome) throws Exception {
         if ((nome.isEmpty())) {
@@ -71,7 +65,6 @@ public class FuncionarioController {
                 cpf.equals("88888888888") || cpf.equals("99999999999")) {
             throw new Exception("A sequencia de CPF digitada não é válida");
         }
-
 
         if (cpf.isEmpty()) {
             throw new Exception("CPF Vazio");

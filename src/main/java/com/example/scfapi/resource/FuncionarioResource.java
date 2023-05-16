@@ -25,7 +25,7 @@ public class FuncionarioResource {
         public ResponseEntity<Funcionario> create(@RequestBody  Funcionario funcionario) {
         FuncionarioController funcionarioController = new FuncionarioController(funcionarioRepository);
         try {
-            if (funcionarioController.isFuncionarioValido(funcionario) && funcionarioController.notFuncionarioExistente(funcionario)) {
+            if (funcionarioController.isFuncionarioValido(funcionario) && funcionarioController.isCadastroFuncionarioUnico(funcionario)) {
                 funcionario.setDataHoraCadastro(new Date());
                 funcionario = funcionarioRepository.save(funcionario);
             }
@@ -45,7 +45,7 @@ public class FuncionarioResource {
     public ResponseEntity<Funcionario> editar(@RequestBody Funcionario funcionario) {
         FuncionarioController funcionarioController = new FuncionarioController(funcionarioRepository);
         try {
-            if (funcionarioController.isFuncionarioValido(funcionario) && funcionarioController.isFuncionarioExistente(funcionario)) {
+            if (funcionarioController.isFuncionarioValido(funcionario) && funcionarioController.isCadastroFuncionarioUnico(funcionario)) {
                 funcionario = funcionarioRepository.save(funcionario);
                 }
         } catch (Exception e) {
