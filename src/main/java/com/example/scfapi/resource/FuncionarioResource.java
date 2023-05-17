@@ -45,7 +45,7 @@ public class FuncionarioResource {
     public ResponseEntity<Funcionario> editar(@RequestBody Funcionario funcionario) {
         FuncionarioController funcionarioController = new FuncionarioController(funcionarioRepository);
         try {
-            if (funcionarioController.isFuncionarioValido(funcionario) && funcionarioController.isCadastroFuncionarioUnico(funcionario)) {
+            if (funcionarioController.isFuncionarioExistente(funcionario) && funcionarioController.isFuncionarioValido(funcionario) && funcionarioController.isCadastroFuncionarioUnico(funcionario)) {
                 funcionario = funcionarioRepository.save(funcionario);
                 }
         } catch (Exception e) {

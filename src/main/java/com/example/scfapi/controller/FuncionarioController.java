@@ -32,6 +32,14 @@ public class FuncionarioController {
         return true;
     }
 
+    public boolean isFuncionarioExistente(Funcionario funcionario) throws Exception {
+        Funcionario funcId = funcionarioRepository.getById(funcionario.getId());
+        if (funcId == null) {
+            throw new Exception("Funcionário não cadastrado no sistema");
+        }
+        return true;
+    }
+
 
     private boolean isNomeValido(String nome) throws Exception {
         if ((nome.isEmpty())) {
