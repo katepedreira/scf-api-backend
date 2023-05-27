@@ -36,9 +36,35 @@ public class FuncionarioResource {
 
     }
 
+//    @GetMapping("getById/{id}")  //original
+//    public Optional<Funcionario> getById(@PathVariable(value = "id") int id) {
+//        return funcionarioRepository.findById(id);
+//    }
+
     @GetMapping("getById/{id}")
-    public Optional<Funcionario> getById(@PathVariable(value = "id") int id) {
-        return funcionarioRepository.findById(id);
+    public ResponseEntity<?> getById(@PathVariable("id") int id) {
+        FuncionarioController funcionarioController = new FuncionarioController(funcionarioRepository);
+        try {
+            Funcionario funcionario = new Funcionario();
+            funcionario.setId(id);
+
+            boolean funcionarioExistente = funcionarioController.isFuncionarioExistente(funcionario);
+
+            if (!funcionarioExistente) {
+                return new ResponseEntity<>("Funcionário não encontrado", HttpStatus.NOT_FOUND);
+            }
+
+            Optional<Funcionario> optionalFuncionario = funcionarioRepository.findById(id);
+
+            if (optionalFuncionario.isPresent()) {
+                funcionario = optionalFuncionario.get();
+                return ResponseEntity.ok(funcionario);
+            } else {
+                return new ResponseEntity<>("Funcionário não encontrado", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("/edit")
