@@ -1,4 +1,4 @@
-package com.academify.resource;
+package com.example.scfapi.resource;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
